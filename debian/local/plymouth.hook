@@ -53,11 +53,11 @@ fi
 # copy plugin and images for current theme
 copy_exec "${MODULE}"
 mkdir -p "${DESTDIR}/${THEMES}"
-cp -r "${THEMES}/${THEME_NAME}" "${DESTDIR}/${THEMES}"
+cp -r --dereference "${THEMES}/${THEME_NAME}" "${DESTDIR}/${THEMES}"
 
 if [ -n "${IMAGE_DIR}" ] && [ "${THEMES}/${THEME_NAME}" != "${IMAGE_DIR}" ]
 then
-	cp -r "${IMAGE_DIR}" "${DESTDIR}/${THEMES}"
+	cp -r --dereference "${IMAGE_DIR}" "${DESTDIR}/${THEMES}"
 fi
 
 # copy binaries and base plugins
