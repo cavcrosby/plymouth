@@ -1,0 +1,25 @@
+name: Sync with the upstream repository
+
+on:
+  schedule:
+    - cron: "0 5 30 * *"
+  workflow_dispatch: {}
+
+jobs:
+  sync-upstream:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Sync the upstream's repository contents
+        run: |
+          git remote add --fetch "upstream" "https://salsa.debian.org/debian/plymouth.git"
+          git checkout "upstream/debian"
+          git rebase "main"
+          git push "origin" "HEAD:main"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
