@@ -1,3 +1,9 @@
+plymouth (24.004.60-5.1.1) unstable; urgency=medium
+
+  * Add cursor and endcap images to two-step plugin
+
+ -- Conner Crosby <cavcrosby@gmail.com>  Wed, 01 Apr 2026 07:24:34 -0400
+
 plymouth (24.004.60-5.1) unstable; urgency=medium
 
   * Non-maintainer upload.
