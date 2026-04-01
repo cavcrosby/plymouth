@@ -1,0 +1,45 @@
+name: Build the packages
+
+on:
+  push:
+    tags:
+      - "**"
+
+jobs:
+  build-pkgs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Create the changelog.txt file
+        run: dpkg-parsechangelog --show-field "changes" > "./changelog.txt"
+
+      - name: Get the version
+        run: printf '%s\n' "PLYMOUTH_VERSION=${GITHUB_REF#refs/tags/debian/}" >> "${GITHUB_ENV}"
+
+      - name: Build the packages
+        run: |
+          docker run \
+            --detach \
+            --tty \
+            --name "debian-unstable" \
+            --mount "type=bind,src=${PWD}/..,dst=/build" \
+            --mount "type=bind,src=${PWD},dst=/build/plymouth" \
+            "debian:unstable"
+
+          docker exec --workdir "/build/plymouth" "debian-unstable" "./.github/setup"
+          docker exec \
+            --workdir "/build/plymouth" \
+            --user "$(id --user)" \
+            "debian-unstable" \
+            "./.github/build-pkgs"
+
+      - name: Create a pre-release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ env.PLYMOUTH_VERSION }}
+          body_path: ./changelog.txt
+          prerelease: true
+          files: ../*.deb

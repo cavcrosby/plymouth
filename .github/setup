@@ -1,0 +1,45 @@
+#!/bin/bash
+#
+# Prepares the environment for building packages.
+
+set -eo pipefail
+
+# constants
+PROGNAME="$(basename "$0")"
+readonly PROGNAME
+readonly ROOT_UID=0
+
+if [ "$(id --user)" != "${ROOT_UID}" ]; then
+    printf '%s: %s\n' "${PROGNAME}" "you must run this as root" >&2
+    exit 1
+fi
+
+apt-get update
+apt-get install \
+    --assume-yes \
+    --no-install-recommends \
+    "bc" \
+    "build-essential" \
+    "debhelper" \
+    "devscripts" \
+    "docbook-xsl" \
+    "gcc" \
+    "gettext" \
+    "git" \
+    "libdrm-dev" \
+    "libevdev-dev" \
+    "libgtk-3-dev" \
+    "libpango1.0-dev" \
+    "libpng-dev" \
+    "libsystemd-dev" \
+    "libudev-dev" \
+    "make" \
+    "meson" \
+    "patchutils" \
+    "pkg-config" \
+    "shellcheck" \
+    "systemd-dev" \
+    "udev" \
+    "uncrustify" \
+    "xkb-data" \
+    "xsltproc"
