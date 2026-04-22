@@ -1,4 +1,4 @@
-plymouth (24.004.60-5.1.1) unstable; urgency=medium
+plymouth (24.004.60-5.1.1) trixie; urgency=medium
 
   * Add cursor and endcap images to two-step plugin
 

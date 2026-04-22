@@ -24,16 +24,16 @@ jobs:
           docker run \
             --detach \
             --tty \
-            --name "debian-unstable" \
+            --name "debian" \
             --mount "type=bind,src=${PWD}/..,dst=/build" \
             --mount "type=bind,src=${PWD},dst=/build/plymouth" \
-            "debian:unstable"
+            "debian:trixie"
 
-          docker exec --workdir "/build/plymouth" "debian-unstable" "./.github/setup"
+          docker exec --workdir "/build/plymouth" "debian" "./.github/setup"
           docker exec \
             --workdir "/build/plymouth" \
             --user "$(id --user)" \
-            "debian-unstable" \
+            "debian" \
             "./.github/build-pkgs"
 
       - name: Create a pre-release
