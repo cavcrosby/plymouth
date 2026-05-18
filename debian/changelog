@@ -1,3 +1,9 @@
+plymouth (26.134.222-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Laurent Bigonville <bigon@debian.org>  Mon, 18 May 2026 09:51:13 +0200
+
 plymouth (24.004.60-5.2) unstable; urgency=medium
 
   * Non-maintainer upload.
