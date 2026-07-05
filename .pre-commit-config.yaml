@@ -1,0 +1,21 @@
+---
+files: |
+  (?x)^(
+    .github/build-pkgs|
+    .github/setup|
+    .github/workflows/build-pkgs.yml|
+    .github/workflows/sync-upstream.yml
+  )$
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks.git
+    rev: v6.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+      - id: trailing-whitespace
+
+  - repo: https://github.com/cavcrosby/shellcheck-precommit.git
+    rev: v0.12.0
+    hooks:
+      - id: shellcheck
