@@ -1,10 +1,9 @@
 ---
 files: |
   (?x)^(
-    .github/build-pkgs|
-    .github/setup|
-    .github/workflows/build-pkgs.yml|
-    .github/workflows/sync-upstream.yml
+    .github/workflows/sync-upstream.yml|
+    scripts/build-pkgs|
+    scripts/setup
   )$
 
 repos:
