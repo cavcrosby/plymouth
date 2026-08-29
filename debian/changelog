@@ -1,3 +1,11 @@
+plymouth (24.004.60-5.2.1) trixie; urgency=medium
+
+  * Add the PromptOverlaysMessage theme setting
+  * Fix console view printing prompt more than once
+  * Fix the console view endlessly redrawing itself
+
+ -- Conner Crosby <cavcrosby@gmail.com>  Fri, 28 Aug 2026 22:26:00 -0400
+
 plymouth (24.004.60-5.2) unstable; urgency=medium
 
   * Non-maintainer upload.
