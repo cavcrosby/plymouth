@@ -16,9 +16,6 @@ jobs:
           fetch-depth: 0
 
       - name: Sync the upstream's repository contents
-        run: |
-          git remote add --fetch "upstream" "https://salsa.debian.org/debian/plymouth.git"
-          git config set "user.name" "github-actions[bot]"
-          git config set "user.email" "41898282+github-actions[bot]@users.noreply.github.com"
-          git merge "upstream/debian"
-          git push "origin" "main"
+        run: ./scripts/sync-upstream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
