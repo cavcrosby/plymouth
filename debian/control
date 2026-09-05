@@ -1,8 +1,7 @@
 Source: plymouth
 Section: misc
 Priority: optional
-Maintainer: Laurent Bigonville <bigon@debian.org>
-Uploaders: Sjoerd Simons <sjoerd@debian.org>
+Maintainer: Conner Crosby <cavcrosby@gmail.com>
 Build-Depends: debhelper-compat (= 13),
                docbook-xsl,
                libdrm-dev,
