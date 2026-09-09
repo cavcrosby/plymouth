@@ -1,0 +1,36 @@
+--- a/src/libply/ply-key-file.c
++++ b/src/libply/ply-key-file.c
+@@ -409,6 +409,20 @@ ply_key_file_get_double (ply_key_file_t
+         return ply_strtod (raw_value);
+ }
+ 
++double
++ply_key_file_get_long (ply_key_file_t *key_file,
++                       const char     *group,
++                       const char     *key,
++                       long            default_value)
++{
++        char *raw_value = ply_key_file_get_raw_value (key_file, group, key);
++
++        if (!raw_value)
++                return default_value;
++
++        return strtol (raw_value, NULL, 0);
++}
++
+ unsigned long
+ ply_key_file_get_ulong (ply_key_file_t *key_file,
+                         const char     *group,
+--- a/src/libply/ply-key-file.h
++++ b/src/libply/ply-key-file.h
+@@ -55,6 +55,10 @@ double ply_key_file_get_double (ply_key_
+                                 const char     *group_name,
+                                 const char     *key,
+                                 double          default_value);
++double ply_key_file_get_long (ply_key_file_t *key_file,
++                              const char     *group,
++                              const char     *key,
++                              long            default_value);
+ unsigned long ply_key_file_get_ulong (ply_key_file_t *key_file,
+                                       const char     *group,
+                                       const char     *key,
