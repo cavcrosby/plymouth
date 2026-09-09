@@ -1,8 +1,14 @@
-plymouth (26.134.222-1) UNRELEASED; urgency=medium
+plymouth (26.134.222-1) unstable; urgency=medium
 
   * New upstream release
+  * Refresh and drop patches applied upstream
+  * debian/libplymouth5.symbols: Add newly exported symbols
+  * debian/control: Bump Standards-Version to 4.7.4 (no further changes)
+  * debian/upstream/metadata: Update the URL's
+  * d/p/restore-ply_key_file_get_long.patch: Restore ply_key_file_get_long()
+    This was removed without a SONAME bump
 
- -- Laurent Bigonville <bigon@debian.org>  Mon, 18 May 2026 09:51:13 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Wed, 09 Sep 2026 22:25:19 +0200
 
 plymouth (24.004.60-5.2) unstable; urgency=medium
 
