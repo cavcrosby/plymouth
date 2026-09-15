@@ -3,7 +3,8 @@ files: |
   (?x)^(
     .github/workflows/sync-upstream.yml|
     scripts/build-pkgs|
-    scripts/setup
+    scripts/setup|
+    scripts/sync-upstream
   )$
 
 repos:
