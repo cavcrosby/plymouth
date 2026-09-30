@@ -3,7 +3,7 @@ Forwarded: not-needed
 
 --- a/src/libply-splash-core/ply-device-manager.c
 +++ b/src/libply-splash-core/ply-device-manager.c
-@@ -826,11 +826,11 @@ parse_vconsole_conf (ply_device_manager_
+@@ -810,11 +810,11 @@ parse_vconsole_conf (ply_device_manager_
          if (!keymap)
                  keymap = ply_kernel_command_line_get_key_value ("vconsole.keymap=");
  

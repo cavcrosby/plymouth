@@ -10,7 +10,7 @@ Description: Ship configuration file with default theme set (Closes: #594999).
 +#Theme=ceratopsian
 --- a/src/plymouthd.defaults
 +++ b/src/plymouthd.defaults
-@@ -1,6 +1,6 @@
+@@ -1,7 +1,7 @@
  # Distribution defaults. Changes to this file will get overwritten during
  # upgrades.
  [Daemon]
@@ -18,3 +18,4 @@ Description: Ship configuration file with default theme set (Closes: #594999).
 +Theme=ceratopsian
  ShowDelay=0
  DeviceTimeout=8
+ # XkbExtraEscButton=0x1008ff2a  # Power button (XKB_KEY_XF86PowerOff)

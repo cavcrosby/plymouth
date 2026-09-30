@@ -60,6 +60,7 @@ struct _ply_input_device
         struct xkb_state         *keyboard_state;
         struct xkb_compose_table *compose_table;
         struct xkb_compose_state *compose_state;
+        xkb_keysym_t              extra_esc_key;
 
         struct libevdev          *dev;
 
@@ -119,6 +120,9 @@ apply_key_to_input_buffer (ply_input_device_t *input_device,
                            int                 keycode,
                            ply_buffer_t       *input_buffer)
 {
+        xkb_mod_index_t control_mask = (UINT32_C (1) << xkb_keymap_mod_get_index (input_device->keymap, XKB_MOD_NAME_CTRL));
+        xkb_mod_index_t alt_mask = (UINT32_C (1) << xkb_keymap_mod_get_index (input_device->keymap, XKB_MOD_NAME_ALT));
+
         ssize_t character_size;
         bool was_compose_sequence;
 
@@ -141,6 +145,18 @@ apply_key_to_input_buffer (ply_input_device_t *input_device,
         case XKB_KEY_NoSymbol:
                 break;
         default:
+                if (symbol == XKB_KEY_Delete) {
+                        xkb_mod_mask_t mods_depressed = xkb_state_serialize_mods (input_device->keyboard_state, XKB_STATE_DEPRESSED);
+                        if (mods_depressed == (control_mask | alt_mask)) {
+                                kill (1, SIGINT);
+                        }
+                }
+
+                if (input_device->extra_esc_key != XKB_KEY_NoSymbol && symbol == input_device->extra_esc_key) {
+                        ply_buffer_append_bytes (input_buffer, "\033", 1);
+                        return;
+                }
+
                 character_size = xkb_state_key_get_utf8 (input_device->keyboard_state, keycode, NULL, 0);
 
                 if (character_size > 0) {
@@ -240,6 +256,8 @@ on_input (ply_input_device_t *input_device)
                         key_state = PLY_KEY_HELD;
                         xkb_key_direction = XKB_KEY_UP;
                         break;
+                default:
+                        continue;
                 }
 
                 /* According to
@@ -298,7 +316,8 @@ ply_input_device_set_disconnect_handler (ply_input_device_t                   *i
 ply_input_device_t *
 ply_input_device_open (struct xkb_context *xkb_context,
                        struct xkb_keymap  *xkb_keymap,
-                       const char         *path)
+                       const char         *path,
+                       xkb_keysym_t        extra_esc_key)
 {
         int error;
         const char *locale;
@@ -323,6 +342,7 @@ ply_input_device_open (struct xkb_context *xkb_context,
 
         input_device->leds_changed_trigger = ply_trigger_new (NULL);
         input_device->loop = ply_event_loop_get_default ();
+        input_device->extra_esc_key = extra_esc_key;
 
         input_device->fd = open (path, O_RDWR | O_NONBLOCK);
 
@@ -519,7 +539,7 @@ ply_input_device_get_keymap (ply_input_device_t *input_device)
          *
          * This string shouldn't be used as a unique indentifier for a keymap
          */
-        return xkb_keymap_layout_get_name (input_device->keymap, num_indices - 1);
+        return xkb_keymap_layout_get_name (input_device->keymap, 0);
 }
 
 int

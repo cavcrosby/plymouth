@@ -1,3 +1,4 @@
 ---
-Repository: https://github.com/freedesktop/plymouth.git
-Repository-Browse: https://github.com/freedesktop/plymouth
+Repository: https://gitlab.freedesktop.org/plymouth/plymouth.git
+Repository-Browse: https://gitlab.freedesktop.org/plymouth/plymouth
+Bug-Database: https://gitlab.freedesktop.org/plymouth/plymouth/-/work_items
