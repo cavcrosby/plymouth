@@ -14,14 +14,14 @@ if ! [ "$(docker container ls --quiet --filter "name=^debian$")" ]; then
         --detach \
         --tty \
         --name "debian" \
-        --mount "type=bind,src=${PWD}/..,dst=/build" \
-        --mount "type=bind,src=${PWD},dst=/build/plymouth" \
+        --mount "type=bind,src=${PWD}/..,dst=/mnt" \
+        --mount "type=bind,src=${PWD},dst=/mnt/plymouth" \
         "debian:trixie"
 fi
 
-docker container exec --workdir "/build/plymouth" "debian" "./scripts/setup"
+docker container exec --workdir "/mnt/plymouth" "debian" "./scripts/setup"
 docker container exec \
-    --workdir "/build/plymouth" \
+    --workdir "/mnt/plymouth" \
     --user "$(id --user)" \
     "debian" \
     "./scripts/build-pkgs"
