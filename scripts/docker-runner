@@ -4,8 +4,8 @@
 
 set -eo pipefail
 
-if ! [ "$(docker ps --quiet --filter "name=^debian$")" ]; then
-    docker run \
+if ! [ "$(docker container ls --quiet --filter "name=^debian$")" ]; then
+    docker container run \
         --detach \
         --tty \
         --name "debian" \
@@ -14,8 +14,8 @@ if ! [ "$(docker ps --quiet --filter "name=^debian$")" ]; then
         "debian:trixie"
 fi
 
-docker exec --workdir "/build/plymouth" "debian" "./scripts/setup"
-docker exec \
+docker container exec --workdir "/build/plymouth" "debian" "./scripts/setup"
+docker container exec \
     --workdir "/build/plymouth" \
     --user "$(id --user)" \
     "debian" \
