@@ -18,6 +18,11 @@ if [ "$(id --user)" != "$(find "${PWD}" -maxdepth 0 -printf "%U")" ]; then
     exit 1
 fi
 
+if ! [ "$(command -v debuild)" ]; then
+    printf "%s: %s\n" "${PROGNAME}" "debuild cannot be found in the PATH!" >&2
+    exit 1
+fi
+
 debuild \
     --unsigned-source \
     --unsigned-buildinfo \

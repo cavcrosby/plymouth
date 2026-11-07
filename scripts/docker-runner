@@ -4,6 +4,11 @@
 
 set -eo pipefail
 
+if ! [ "$(command -v docker)" ]; then
+    printf "%s: %s\n" "${PROGNAME}" "docker cannot be found in the PATH!" >&2
+    exit 1
+fi
+
 if ! [ "$(docker container ls --quiet --filter "name=^debian$")" ]; then
     docker container run \
         --detach \
